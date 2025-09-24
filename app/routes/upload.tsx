@@ -8,7 +8,7 @@ import { usePuterStore } from "~/lib/Puter";
 import { generateUUIDRandom } from "~/lib/utilis";
 
 const Upload = () => {
-  const { auth, isLoading, fs, ai, kv } = usePuterStore();
+  const { fs, ai, kv } = usePuterStore();
   const navigate = useNavigate();
   const [isProcessing, setIsProcessing] = useState(false);
   const [statusText, setStatusText] = useState("");
@@ -60,12 +60,12 @@ const Upload = () => {
         ? feedback.message.content
         : feedback.message.content[0].text;
 
-    await kv.set(`resume-${uuid}`, JSON.stringify(data));
+    await kv.set(`resume:${uuid}`, JSON.stringify(data));
     setStatusText("Analyzing... ");
     data.feedBack = JSON.parse(feedbackText);
-    await kv.set(`resume-${uuid}`, JSON.stringify(data));
-    setStatusText("Analysis complete");
-    console.log(data);
+    await kv.set(`resume:${uuid}`, JSON.stringify(data));
+    setStatusText("Analysis complete, redirecting...");
+    navigate(`/resume/${uuid}`);
   };
   const handelFileSelect = (file: File | null) => {
     setFile(file);
