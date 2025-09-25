@@ -38,11 +38,7 @@ const resume = () => {
       if (!imageBlob) return;
       const imageUrl = URL.createObjectURL(imageBlob);
       setImageUrl(imageUrl);
-
-      console.log(data);
-
       setFeedBack(data.feedBack);
-      console.log({ resumeUrl, imageUrl, feedback: data.feedback });
     };
     fetchData();
   }, [id]);
